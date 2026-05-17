@@ -1,0 +1,635 @@
+:root {
+    /* Dark Mode Colors (Default) */
+    --bg-main-1: #1e3c72; 
+    --bg-main-2: #2a5298;
+    --bg-card: #16213e;
+    --text-color: #ffffff;
+    --accent-color: #007bff;
+}
+
+[data-theme="light"] {
+    /* Light Mode Colors */
+    --bg-main-1: #e0eafc; 
+    --bg-main-2: #cfdef3;
+    --bg-card: #ffffff;
+    --text-color: #333333;
+    --accent-color: #0056b3;
+}
+
+/* Reset - This can be Line 18 or 20 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    /* This uses the variables to change the gradient colors */
+    background: linear-gradient(270deg, var(--bg-main-1), var(--bg-main-2), var(--accent-color));
+    background-size: 800% 800%;
+    animation: gradientMove 12s ease infinite;
+    color: var(--text-color);
+    text-align: center;
+    transition: 0.5s; 
+    min-height: 100vh;
+}
+
+/* Update your specific containers */
+.container, .admin-container, .card {
+    background-color: var(--bg-card);
+    color: var(--text-color);
+    transition: 0.3s;
+}
+
+/* Keep your existing @keyframes gradientMove below this */
+
+/* Animated gradient */
+@keyframes gradientMove {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+}
+
+/* Heading */
+h1 {
+    margin-top: 20px;
+    font-size: 3rem;
+    letter-spacing: 2px;
+    text-shadow: 0px 0px 20px rgba(255,255,255,0.7);
+    transition: 0.3s;
+}
+
+h1:hover {
+    transform: scale(1.1);
+    color: gold;
+}
+
+/* ✅ 2. THE MAIN CONTAINER (Fixes the PC Width) */
+.container {
+    width: 90%;
+    max-width: 600px; /* Keeps it centered and neat on PC */
+    margin: 50px auto; /* Centers it on the screen */
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.05); /* Slight glass effect */
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+}
+
+.container:hover {
+    transform: scale(1.02);
+}
+
+/* ✅ 3. INPUT FIELDS (Restores proper sizing) */
+input, select, textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-sizing: border-box; /* Crucial for width alignment */
+    font-size: 16px;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+/* Input hover + focus glow */
+input:hover, select:hover, textarea:hover {
+    transform: scale(1.05);
+}
+
+input:focus, select:focus, textarea:focus {
+    box-shadow: 0px 0px 12px #00f7ff;
+    transform: scale(1.07);
+}
+
+textarea {
+    width: 60%;          /* reduced width */
+    height: 50px;        /* smaller height */
+    padding: 8px;
+    margin: 8px auto;    /* center properly */
+    display: block;
+    border-radius: 8px;
+    resize: vertical;    /* optional resize */
+    font-size: 14px;
+}
+
+
+
+/* Buttons */
+button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(45deg, gold, orange);
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* Button hover effects */
+button:hover {
+    transform: scale(1.15);
+    box-shadow: 0px 0px 20px gold;
+}
+
+/* Button click effect */
+button:active {
+    transform: scale(0.95);
+}
+
+/* Section headings */
+h2 {
+    margin-top: 20px;
+    text-decoration: underline;
+    transition: 0.3s;
+}
+
+h2:hover {
+    color: cyan;
+}
+
+/* Complaint ID display */
+#uniqueIdDisplay {
+    margin-top: 10px;
+    font-size: 18px;
+    color: #00ffcc;
+    text-shadow: 0px 0px 10px #00ffcc;
+}
+
+/* Status display */
+#statusDisplay {
+    margin-top: 10px;
+    font-size: 18px;
+    color: yellow;
+}
+
+/* Admin panel styling */
+#adminPanel {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    background: rgba(0,0,0,0.5);
+
+    overflow-x: auto;   /* ✅ FIX: allows horizontal scroll */
+}
+
+/* Cards inside admin panel */
+#adminPanel p {
+    background: rgba(255,255,255,0.1);
+    padding: 10px;
+    border-radius: 8px;
+    margin: 10px;
+    transition: 0.3s;
+}
+
+#adminPanel p:hover {
+    transform: scale(1.05);
+    background: rgba(255,255,255,0.2);
+}
+
+/* Smooth fade-in animation */
+.container, h1 {
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+}
+.admin-card {
+    background: rgba(255,255,255,0.08);
+    padding: 15px;
+    margin: 15px auto;
+    border-radius: 10px;
+    width: 80%;
+    text-align: left;
+    transition: 0.3s;
+}
+
+.admin-card:hover {
+    transform: scale(1.03);
+    background: rgba(255,255,255,0.15);
+}
+
+.admin-card p {
+    margin: 5px 0;
+}
+#searchBox, #statusFilter {
+    padding: 8px;
+    margin: 10px;
+    border-radius: 8px;
+    border: none;
+    width: 200px;
+}
+
+#searchBox:hover, #statusFilter:hover {
+    transform: scale(1.05);
+}
+.admin-table {
+    width: 100%;              /* ✅ fit inside container */
+    min-width: 600px;         /* ✅ prevents squishing */
+    margin: 20px auto;
+    border-collapse: collapse;
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.admin-table th, .admin-table td {
+    padding: 8px;        /* smaller spacing */
+    font-size: 13px;     /* smaller text */
+    text-align: center;
+}
+
+.admin-table th {
+    background: rgba(0,0,0,0.6);
+    color: gold;
+}
+
+.admin-table tr {
+    transition: 0.3s;
+}
+
+.admin-table tr:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+.admin-table td {
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: bold;
+}
+
+/* Circle dot */
+.status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+/* Colors */
+.pending {
+    background-color: red;
+}
+
+.inprogress {
+    background-color: orange;
+}
+
+.completed {
+    background-color: lightgreen;
+}
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0,0,0,0.7);
+
+    z-index: 9999;   /* 🔥 MOST IMPORTANT FIX */
+}
+
+.popup-content {
+    background: white;
+    color: black;
+    width: 600px;
+    margin: 100px auto;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: left;
+
+    position: relative;
+    z-index: 10000;
+}
+
+.close-btn {
+    float: right;
+    font-size: 20px;
+    cursor: pointer;
+}
+body {
+    margin: 0;
+    font-family: Arial;
+}
+
+.container {
+    width: 90%;
+    max-width: 900px;
+    margin: auto;
+}
+
+/* MOBILE VIEW */
+@media (max-width: 768px) {
+
+    h1 {
+        font-size: 20px;
+        text-align: center;
+    }
+
+    input, select, textarea, button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    table {
+        font-size: 12px;
+        overflow-x: auto;
+        display: block;
+    }
+}
+/* =========================
+   TOAST SYSTEM (TOP RIGHT)
+========================= */
+
+#toastContainer {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.toast {
+    min-width: 220px;
+    padding: 12px 15px;
+    border-radius: 8px;
+    color: white;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.7s forwards;
+}
+
+.toast.success {
+    background: #2ecc71;
+}
+
+.toast.error {
+    background: #e74c3c;
+}
+
+.toast.info {
+    background: #3498db;
+}
+
+/* Animations */
+@keyframes slideIn {
+    from {
+        transform: translateX(120%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        transform: translateX(120%);
+    }
+}
+
+.popup-content img {
+    transition: 0.3s;
+}
+
+.popup-content img:hover {
+    transform: scale(1.05);
+}
+
+.stat-box {
+    padding: 10px 20px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(5px);
+    font-weight: bold;
+    color: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+
+.stat-box:hover {
+    transform: scale(1.1);
+    background: rgba(255,255,255,0.2);
+}
+
+.stat-box:nth-child(1) { border: 2px solid cyan; }
+.stat-box:nth-child(2) { border: 2px solid red; }
+.stat-box:nth-child(3) { border: 2px solid orange; }
+.stat-box:nth-child(4) { border: 2px solid lightgreen; }
+
+#branchFilter, #issueFilter, #fromDate, #toDate {
+    margin: 8px;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+/* ✅ THE ULTIMATE CIRCLE FIX (No more ovals!) */
+#themeToggle {
+    position: fixed !important;
+    top: 15px !important;
+    right: 15px !important;
+    width: 50px !important;
+    height: 50px !important;
+    min-width: 50px !important;
+    max-width: 50px !important;
+    border-radius: 50% !important;
+    padding: 0 !important; /* Removes the padding that caused the stretch */
+    background: #ffb400 !important;
+    border: 2px solid #fff !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    font-size: 20px;
+}
+
+/* ✅ PC & MOBILE RESPONSIVE CONTAINER */
+.container {
+    width: 90%;
+    max-width: 500px;
+    margin: 30px auto;
+    padding: 25px;
+    background: #1e293b; /* Modern dark slate */
+    color: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+/* Header fix for mobile so toggle doesn't overlap title */
+.main-header {
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 10px;
+}
+
+/* Uniform Input Styling */
+input, select, textarea {
+    width: 100% !important;
+    padding: 12px !important;
+    margin: 8px 0 !important;
+    border-radius: 6px !important;
+    border: 1px solid #334155 !important;
+    background: #0f172a !important;
+    color: white !important;
+    font-size: 16px !important;
+    box-sizing: border-box !important;
+}
+
+/* Divider styling */
+.divider {
+    border: 0;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    margin: 25px 0;
+}
+
+/* ========================================================
+   📱 MOBILE ONLY FIXES (Applied only to screens < 600px)
+   ======================================================== */
+@media screen and (max-width: 600px) {
+    
+    /* 1. THE CONTAINER: Increased gaps on sides (80% width) */
+    .container {
+        width: 80% !important; /* This creates 10% empty space on each side */
+        padding: 25px !important;
+        margin: 80px auto 30px auto !important; /* Space for fixed toggle */
+        box-sizing: border-box !important;
+        border-radius: 15px !important; /* Slightly rounder for a better look */
+    }
+
+    /* 2. THE TOGGLE: Ensures it stays a perfect circle */
+    #themeToggle {
+        position: fixed !important;
+        top: 15px !important;
+        right: 15px !important;
+        width: 48px !important;
+        height: 48px !important;
+        min-width: 48px !important;
+        border-radius: 50% !important;
+        z-index: 10000 !important;
+        padding: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    /* 3. THE TITLE: Keeps it centered and away from the toggle */
+    h1 { 
+        font-size: 1.4rem !important; 
+        text-align: center !important;
+        padding: 0 50px !important; 
+        margin-top: 20px !important;
+    }
+
+    /* 4. THE FAT FINGER RULE: Better Spacing for inputs */
+    input, select, textarea {
+        height: 50px !important;
+        margin-bottom: 18px !important; 
+        font-size: 16px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    button {
+        height: 55px !important;
+        margin-top: 10px !important;
+    }
+}
+
+/* ========================================================
+   🖥️ DESKTOP-ONLY STYLES (Applied only to PC/Laptop screens)
+   ======================================================== */
+@media screen and (min-width: 1024px) {
+    
+    /* 1. EXPAND THE MAIN ADMIN CONTAINER */
+    /* If your admin panel uses a different class or ID, ensure it matches here */
+    #adminPanel, 
+    .admin-container,
+    body > .container:has(table) { 
+        width: 95% !important;        /* Let it take up almost the full screen width */
+        max-width: 1400px !important;  /* Set a generous limit for massive monitors */
+        margin: 40px auto !important;  /* Center it beautifully on the desktop */
+        padding: 30px !important;
+    }
+
+    /* 2. OPTIMIZE THE COMPLAINTS TABLE FOR WIDE SCREENS */
+    table {
+        width: 100% !important;       /* Force the table to stretch across the full wide container */
+        table-layout: auto !important; /* Allow columns to space out naturally based on content */
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 14px 18px !important; /* Give the cells plenty of breathing room */
+        font-size: 15px !important;    /* Make text sharp and highly readable */
+        text-align: left;
+    }
+
+    /* Give specific columns dedicated tracking space */
+    td:nth-child(4) { /* Date & Time column */
+        white-space: nowrap !important; /* Prevent the timestamp from splitting into two lines */
+    }
+
+    /* 3. RE-ADJUST BUTTONS IN THE TABLE */
+    .delete-btn, table button {
+        padding: 8px 16px !important;
+        width: auto !important; /* Prevent desktop buttons from stretching vertically */
+        font-size: 14px !important;
+    }
+}
+
+/* ========================================================
+   ✨ HOVER GLOW & OVERFLOW FIXES 
+   ======================================================== */
+
+/* 1. Prevent any glowing effects from leaking outside the main dashboard card */
+#adminPanel,
+.admin-container,
+.container {
+    overflow: hidden !important; 
+}
+
+/* 2. Reign in the aggressive yellow blur aura on hover */
+#adminPanel button:hover,
+.admin-container button:hover,
+#complaintForm button:hover,
+button:hover {
+    /* Keeps a crisp, tight neon glow within the button borders */
+    box-shadow: 0 0 12px rgba(254, 176, 25, 0.6) !important;
+    
+    /* Safely overrides any massive blur filters */
+    filter: drop-shadow(0px 0px 4px rgba(254, 176, 25, 0.4)) !important;
+    
+    /* Slightly keeps the clean movement without over-expanding */
+    transform: translateY(-1px) !important; 
+}

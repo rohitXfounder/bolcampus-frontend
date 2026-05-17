@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>BOLCAMPUS Admin</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+</head>
+
+<body>
+
+<h1>Admin Dashboard</h1>
+
+<div class="container">
+
+    <!-- BACK TO STUDENT -->
+    <button onclick="window.location.href='index.html'">
+        ← Back to Student Portal
+    </button>
+
+    <br><br>
+
+    <!-- LOGIN -->
+    <h2>Admin Login</h2>
+
+    <input type="password" id="adminPass" placeholder="Enter Password">
+    <button onclick="adminLogin()">Login</button>
+
+    <button id="logoutBtn" onclick="logout()" style="display:none;">
+        Logout
+    </button>
+
+    <br><br>
+
+    <!-- FILTER -->
+<input id="searchBox"
+       placeholder="Search by Name or ID"
+       onkeyup="filterComplaints()"
+       style="display:none;">
+
+<!-- STATUS FILTER -->
+<select id="statusFilter"
+        onchange="filterComplaints()"
+        style="display:none;">
+    <option value="All">All</option>
+    <option value="Pending">Pending</option>
+    <option value="In Progress">In Progress</option>
+    <option value="Completed">Completed</option>
+</select>
+
+<!-- BRANCH FILTER -->
+<select id="branchFilter"
+        onchange="filterComplaints()"
+        style="display:none;">
+    <option value="All">All Branches</option>
+    <option value="AI&DS">AI&DS</option>
+    <option value="CSE">CSE</option>
+    <option value="ECE">ECE</option>
+    <option value="VLSI">VLSI</option>
+    <option value="CIVIL">CIVIL</option>
+    <option value="MECHANICAL">MECHANICAL</option>
+</select>
+
+<!-- ISSUE FILTER -->
+<select id="issueFilter"
+        onchange="filterComplaints()"
+        style="display:none;">
+    <option value="All">All Issues</option>
+    <option value="Academic">Academic</option>
+    <option value="Water">Water</option>
+    <option value="Hostel">Hostel</option>
+    <option value="Toilet">Toilet</option>
+    <option value="Electricity">Electricity</option>
+    <option value="Administration">Administration</option>
+</select>
+
+
+<!-- The Wrapper that contains everything -->
+<div id="statsContainer" style="display:none; margin:15px 0; text-align:center;">
+    
+    <!-- This div will be updated by JavaScript (The numbers) -->
+    <div id="statsBar"></div> 
+    
+    <!-- This button is PERMANENT and won't be deleted -->
+    <button onclick="exportComplaintsToExcel()" class="export-excel-btn" style="margin-top: 15px;">
+        <i class="fas fa-file-excel"></i> Export to Excel
+    </button>
+</div>
+<div id="adminPanel"></div>
+
+<!-- NOTIFICATIONS -->
+<div id="notificationPanel"></div>
+
+<!-- POPUP -->
+<div id="popup" class="popup">
+    <div class="popup-content">
+        <span onclick="closePopup()" class="close-btn">&times;</span>
+        <div id="popupDetails"></div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+
+<!-- TOAST CONTAINER -->
+<div id="toastContainer"></div>
+
+</body>
+</html>
