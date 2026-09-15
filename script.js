@@ -26,94 +26,76 @@ function showToast(message, type = "info") {
     }, 3000);
 }
 
+
 // ======================================================
-// 🧾 STUDENT: Submit Complaint (JSON + BASE64 SUPPORT)
+// 🧾 STUDENT: Submit Complaint (FIXED FOR DOUBLE CLICK)
 // ======================================================
 const complaintForm = document.getElementById("complaintForm");
+// 1. Get the button so we can disable it
 const submitBtn = complaintForm ? complaintForm.querySelector('button[type="submit"]') : null;
 
-// Helper to convert Image to Base64
-function convertFileToBase64(file) {
-    return new Promise((resolve, reject) => {
-        if (!file) return resolve(null);
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = (error) => reject(error);
-    });
-}
-
 if (complaintForm && submitBtn) {
-    complaintForm.addEventListener("submit", async function (e) {
+    complaintForm.addEventListener("submit", function (e) {
         e.preventDefault();
 
-        // 🛑 STOP DOUBLE CLICKS START
+        // --- 🛑 STOP DOUBLE CLICKS START ---
         submitBtn.disabled = true; 
         submitBtn.innerText = "Submitting... Please wait";
+        // ------------------------------------
 
-        try {
-            let id = "CMP" + Date.now();
-            let imageFile = document.getElementById("image").files[0];
-            let base64Image = null;
+        let id = "CMP" + Date.now();
+        let formData = new FormData();
 
-            if (imageFile) {
-                base64Image = await convertFileToBase64(imageFile);
-            }
+        formData.append("id", id);
+        formData.append("name", document.getElementById("name").value);
+        formData.append("branch", document.getElementById("branch").value);
+        formData.append("division", document.getElementById("division").value);
+        formData.append("roll", document.getElementById("roll").value);
+        formData.append("issue", document.getElementById("issue").value);
+        formData.append("description", document.getElementById("description").value);
+        formData.append("status", "Pending");
+        formData.append("createdAt", new Date().toISOString());
 
-            // Create JSON payload
-            let payload = {
-                id: id,
-                name: document.getElementById("name").value,
-                branch: document.getElementById("branch").value,
-                division: document.getElementById("division").value,
-                roll: document.getElementById("roll").value,
-                issue: document.getElementById("issue").value,
-                description: document.getElementById("description").value,
-                status: "Pending",
-                createdAt: new Date().toISOString(),
-                image: base64Image
-            };
+        let imageFile = document.getElementById("image").files[0];
+        if (imageFile) {
+            formData.append("image", imageFile);
+        }
 
-            const response = await fetch(`${API_URL}/add`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(payload)
-            });
+        fetch(`${API_URL}/add`, {
+            method: "POST",
+            body: formData
+        })
+            .then(res => res.text())
+            .then(() => {
+                document.getElementById("uniqueIdDisplay").innerText =
+                    "Your Complaint ID: " + id;
 
-            if (!response.ok) {
-                throw new Error("Server error");
-            }
+                    // ✨ ADD THIS LINE to make the button appear
+                document.getElementById("copyBtn").style.display = "inline-block";
 
-            // UI Actions on Success
-            document.getElementById("uniqueIdDisplay").innerText = "Your Complaint ID: " + id;
-            document.getElementById("copyBtn").style.display = "inline-block";
-
-            complaintForm.reset();
-            showToast("Complaint submitted", "success");
-            
-            if (typeof confetti === "function") {
+                complaintForm.reset();
+                showToast("Complaint submitted", "success");
                 confetti({
                     particleCount: 150,
                     spread: 70,
                     origin: { y: 0.6 },
-                    colors: ['#007bff', '#ffc107', '#28a745']
+                    colors: ['#007bff', '#ffc107', '#28a745'] // Matches blue, yellow, and green theme
                 });
-            }
-
-        } catch (error) {
+            })
+            .catch((error) => {
             console.error("Error:", error);
             if (!navigator.onLine) {
                 showToast("Internet Disconnected! Please reconnect to submit.", "error");
             } else {
-                showToast("Server is waking up or error occurred. Please try again.", "error");
+                showToast("Server is waking up. Please wait 10 seconds and try again.", "error");
             }
-        } finally {
-            // ✅ BRING BUTTON BACK TO NORMAL
-            submitBtn.disabled = false;
-            submitBtn.innerText = "Submit Complaint";
-        }
+        })
+            .finally(() => {
+                // --- ✅ BRING BUTTON BACK TO NORMAL ---
+                submitBtn.disabled = false;
+                submitBtn.innerText = "Submit Complaint";
+                // --------------------------------------
+            });
     });
 }
 
@@ -759,8 +741,8 @@ async function exportComplaintsToExcel() {
 // 🔄 AUTO-REFRESH LOGIC
 // ======================================================
 
-// Set the interval to 10 seconds (10000 milliseconds)
-const REFRESH_INTERVAL = 10000;
+// Set the interval to 30 seconds (30000 milliseconds)
+const REFRESH_INTERVAL = 30000; 
 
 setInterval(() => {
     // Only refresh if the admin is actually logged in
