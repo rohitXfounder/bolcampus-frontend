@@ -741,8 +741,8 @@ async function exportComplaintsToExcel() {
 // 🔄 AUTO-REFRESH LOGIC
 // ======================================================
 
-// Set the interval to 30 seconds (30000 milliseconds)
-const REFRESH_INTERVAL = 30000; 
+// Set the interval to 10 seconds (10000 milliseconds)
+const REFRESH_INTERVAL = 10000;
 
 setInterval(() => {
     // Only refresh if the admin is actually logged in
